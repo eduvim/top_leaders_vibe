@@ -1,0 +1,28 @@
+<h1><%= t "situation_log.views.entries_title" %></h1>
+
+<% if @entries.any? %>
+  <ul class="entry-list">
+    <% @entries.each do |entry| %>
+      <li>
+        <%= link_to entry_path(entry.id) do %>
+          <div class="entry-meta">
+            <%= l entry.logged_at, format: :short if entry.logged_at %>
+            · <%= entry.emotion_tag.presence || "—" %>
+            · <%= entry.intensity ? "#{entry.intensity}/5" : "—" %>
+            <% if entry.draft? %>
+              <span class="badge--draft"><%= t "situation_log.views.draft_badge" %></span>
+            <% end %>
+          </div>
+          <% if entry.what_happened.present? %>
+            <p class="entry-snippet"><%= truncate(entry.what_happened, length: 80) %></p>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="empty-state">
+    <p><%= t "situation_log.views.empty_entries" %></p>
+    <%= link_to t("situation_log.actions.log_situation"), new_entry_path, class: "button button--primary" %>
+  </div>
+<% end %>

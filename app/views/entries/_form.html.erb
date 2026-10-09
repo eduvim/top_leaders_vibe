@@ -1,0 +1,72 @@
+<% url = local_assigns[:url] || entries_path %>
+<% method = local_assigns[:method] || :post %>
+<%= form_with model: @entry, scope: :entry, url: url, method: method, class: "entry-form" do |f| %>
+  <div class="field <%= "field-with-errors" if @entry.errors[:what_happened].any? %>">
+    <%= f.label :what_happened, t("situation_log.questions.what_happened") %>
+    <%= f.text_area :what_happened, rows: 4 %>
+    <% @entry.errors[:what_happened].each do |message| %>
+      <p class="field-error"><%= message %></p>
+    <% end %>
+  </div>
+
+  <div class="field <%= "field-with-errors" if @entry.errors[:meaning].any? %>">
+    <%= f.label :meaning, t("situation_log.questions.meaning") %>
+    <%= f.text_area :meaning, rows: 3 %>
+    <% @entry.errors[:meaning].each do |message| %>
+      <p class="field-error"><%= message %></p>
+    <% end %>
+  </div>
+
+  <div class="field <%= "field-with-errors" if @entry.errors[:emotion_raw].any? %>">
+    <%= f.label :emotion_raw, t("situation_log.questions.emotion") %>
+    <%= f.text_field :emotion_raw %>
+    <% @entry.errors[:emotion_raw].each do |message| %>
+      <p class="field-error"><%= message %></p>
+    <% end %>
+  </div>
+
+  <fieldset class="field">
+    <legend><%= t "situation_log.questions.intensity" %></legend>
+    <% { 1 => :very_low, 2 => :low, 3 => :medium, 4 => :high, 5 => :very_high }.each do |value, key| %>
+      <%= f.radio_button :intensity, value %>
+      <%= f.label :intensity, t("situation_log.intensity.#{key}"), value: value %>
+    <% end %>
+    <% @entry.errors[:intensity].each do |message| %>
+      <p class="field-error"><%= message %></p>
+    <% end %>
+  </fieldset>
+
+  <div class="field <%= "field-with-errors" if @entry.errors[:reaction].any? %>">
+    <%= f.label :reaction, t("situation_log.questions.reaction") %>
+    <%= f.text_area :reaction, rows: 4 %>
+    <% @entry.errors[:reaction].each do |message| %>
+      <p class="field-error"><%= message %></p>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" name="commit" value="save" class="button button--primary"><%= t "situation_log.actions.save" %></button>
+    <button type="submit" name="commit" value="draft" class="button"><%= t "situation_log.actions.save_draft" %></button>
+  </div>
+
+  <script>
+    // RF-06: warn before discarding a partially filled form.
+    (function () {
+      var form = document.currentScript.closest("form");
+      var dirty = false;
+      var submitted = false;
+
+      form.addEventListener("submit", function () { submitted = true; });
+      form.addEventListener("input", function () { dirty = true; });
+      form.addEventListener("change", function () { dirty = true; });
+
+      window.addEventListener("beforeunload", function (event) {
+        if (dirty && !submitted) {
+          event.preventDefault();
+          event.returnValue = <%= t("situation_log.views.unsaved_warning").to_json %>;
+          return event.returnValue;
+        }
+      });
+    })();
+  </script>
+<% end %>

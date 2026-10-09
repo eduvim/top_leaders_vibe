@@ -1,0 +1,58 @@
+<h1><%= t "situation_log.views.entry_detail" %></h1>
+
+<dl>
+  <div class="detail-field">
+    <dt><%= t "situation_log.questions.what_happened" %></dt>
+    <dd><%= @entry.what_happened.presence || "—" %></dd>
+  </div>
+  <div class="detail-field">
+    <dt><%= t "situation_log.questions.meaning" %></dt>
+    <dd><%= @entry.meaning.presence || "—" %></dd>
+  </div>
+  <div class="detail-field">
+    <dt><%= t "situation_log.questions.emotion" %></dt>
+    <dd><%= @entry.emotion_raw.presence || "—" %></dd>
+  </div>
+  <div class="detail-field">
+    <dt><%= t "situation_log.questions.intensity" %></dt>
+    <dd><%= @entry.intensity ? "#{@entry.intensity}/5" : "—" %></dd>
+  </div>
+  <div class="detail-field">
+    <dt><%= t "situation_log.questions.reaction" %></dt>
+    <dd><%= @entry.reaction.presence || "—" %></dd>
+  </div>
+  <div class="detail-field">
+    <dt><%= t "situation_log.views.logged_on" %></dt>
+    <dd><%= l @entry.logged_at, format: :long if @entry.logged_at %></dd>
+  </div>
+</dl>
+
+<nav class="main-actions" aria-label="Acciones">
+  <%= link_to t("situation_log.actions.log_another"), new_entry_path, class: "button button--primary" %>
+  <%= link_to t("situation_log.actions.edit"), edit_entry_path(@entry.id), class: "button" %>
+  <% if @entry.updated_at && @entry.updated_at != @entry.logged_at %>
+    <span class="muted"><%= t "situation_log.views.edited_on" %>: <%= l @entry.updated_at, format: :short %></span>
+  <% end %>
+</nav>
+
+<div class="form-actions">
+  <%= form_with url: entry_path(@entry.id), method: :delete, class: "delete-form" do %>
+    <button type="submit" class="button button--danger" data-confirm="<%= t "situation_log.views.delete_confirm" %>">
+      <%= t "situation_log.actions.delete" %>
+    </button>
+  <% end %>
+  <%= link_to t("situation_log.actions.back"), root_path, class: "button" %>
+</div>
+
+<script>
+  // CD5: ask before the destructive delete action. Degrades silently without JS.
+  (function () {
+    var button = document.currentScript.parentElement.querySelector("[data-confirm]");
+    if (!button) { return; }
+    button.closest("form").addEventListener("submit", function (event) {
+      if (!window.confirm(button.getAttribute("data-confirm"))) {
+        event.preventDefault();
+      }
+    });
+  })();
+</script>

@@ -1,0 +1,97 @@
+---
+es:
+  date:
+    formats:
+      long: "%-d de %B de %Y"
+    month_names:
+      - ~
+      - enero
+      - febrero
+      - marzo
+      - abril
+      - mayo
+      - junio
+      - julio
+      - agosto
+      - septiembre
+      - octubre
+      - noviembre
+      - diciembre
+    day_names:
+      - domingo
+      - lunes
+      - martes
+      - miércoles
+      - jueves
+      - viernes
+      - sábado
+  time:
+    formats:
+      long: "%-d de %B de %Y, %H:%M"
+      short: "%-d/%m/%Y %H:%M"
+  date:
+    formats:
+      long: "%-d de %B de %Y"
+  activemodel:
+    attributes:
+      situation_entry:
+        id: Identificador
+        what_happened: "¿Qué pasó?"
+        meaning: "¿Qué significado le diste a lo que pasó?"
+        emotion_raw: "¿Qué emoción sentiste?"
+        emotion_tag: Emoción
+        intensity: "¿Cómo fue de intensa?"
+        reaction: "¿Cómo reaccionaste?"
+        logged_at: "Fecha y hora del registro"
+        updated_at: "Última modificación"
+        status: Estado
+  errors:
+    format: "%{attribute}: %{message}"
+    messages:
+      blank: "no puede estar en blanco"
+      inclusion: "no está incluido en la lista"
+      too_long:
+        one: "es demasiado largo (máximo 1 carácter)"
+        other: "es demasiado largo (máximo %{count} caracteres)"
+      invalid: "no es válido"
+  situation_log:
+    notice:
+      responsible_use: "Esta aplicación es un registro personal de autoconocimiento. No sustituye la atención psicológica profesional."
+    questions:
+      what_happened: "¿Qué pasó?"
+      meaning: "¿Qué significado le diste a lo que pasó?"
+      emotion: "¿Qué emoción sentiste?"
+      intensity: "¿Cómo fue de intensa?"
+      reaction: "¿Cómo reaccionaste?"
+    intensity:
+      very_low: "1 — Muy leve"
+      low: "2 — Leve"
+      medium: "3 — Media"
+      high: "4 — Intensa"
+      very_high: "5 — Muy intensa"
+    actions:
+      log_situation: "Registrar situación"
+      my_entries: "Mis registros"
+      save: "Guardar"
+      save_draft: "Guardar borrador"
+      edit: "Editar"
+      delete: "Eliminar"
+      back: "Volver"
+      log_another: "Registrar otra situación"
+    flash:
+      entry_saved: "Tu registro se guardó."
+      draft_saved: "Tu borrador se guardó."
+      entry_updated: "Tu registro se actualizó."
+      entry_deleted: "El registro se eliminó."
+      save_failed: "No se pudo guardar tu registro. Tus respuestas siguen en pantalla. Inténtalo de nuevo."
+      delete_failed: "No se pudo eliminar el registro. Inténtalo de nuevo."
+    views:
+      entries_title: "Mis registros"
+      empty_entries: "Aún no tienes registros."
+      entry_detail: "Detalle del registro"
+      draft_badge: "Borrador"
+      unsaved_warning: "Tienes respuestas sin guardar. ¿Seguro que quieres salir?"
+      delete_confirm: "¿Eliminar este registro? Esta acción no se puede deshacer."
+      not_found: "No se encontró el registro."
+      logged_on: "Registrado el"
+      edited_on: "Editado el"
